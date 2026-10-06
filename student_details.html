@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Study Planner</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #89f7fe, #66a6ff);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+
+            border: 2px solid #ddd;
+            border-radius: 10px;
+
+            font-size: 16px;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .subjects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .button {
+            width: 100%;
+            margin-top: 25px;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: #667eea;
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #4f5bd5;
+        }
+
+        /* Student details result */
+
+        #result {
+            display: none;
+
+            margin-top: 25px;
+            padding: 20px;
+
+            background: #f3f6ff;
+            border-radius: 15px;
+        }
+
+        #result h2 {
+            text-align: center;
+            color: #667eea;
+        }
+
+        .detail {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .study-time {
+            color: #e91e63;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>📚 Student Study Planner</h1>
+
+        <p class="subtitle">
+            Enter your study details
+        </p>
+
+
+        <!-- Student Name -->
+
+        <label for="name">
+            Student Name
+        </label>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+        >
+
+
+        <!-- Class -->
+
+        <label for="class">
+            Class / Course
+        </label>
+
+        <input
+            type="text"
+            id="class"
+            placeholder="Example: B.E CSE - 1st Year"
+        >
+
+
+        <!-- Subjects -->
+
+        <label>
+            Subjects
+        </label>
+
+        <div class="subjects">
+
+            <input
+                type="text"
+                id="subject1"
+                placeholder="Subject 1"
+            >
+
+            <input
+                type="text"
+                id="subject2"
+                placeholder="Subject 2"
+            >
+
+            <input
+                type="text"
+                id="subject3"
+                placeholder="Subject 3"
+            >
+
+            <input
+                type="text"
+                id="subject4"
+                placeholder="Subject 4"
+            >
+
+        </div>
+
+
+        <!-- Daily Study Time -->
+
+        <label for="studyTime">
+            Daily Study Start Time
+        </label>
+
+        <input
+            type="time"
+            id="studyTime"
+        >
+
+
+        <!-- Number of Hours -->
+
+        <label for="hours">
+            How many hours do you want to study daily?
+        </label>
+
+        <select id="hours">
+
+            <option value="">
+                Select study hours
+            </option>
+
+            <option value="1 hour">
+                1 Hour
+            </option>
+
+            <option value="2 hours">
+                2 Hours
+            </option>
+
+            <option value="3 hours">
+                3 Hours
+            </option>
+
+            <option value="4 hours">
+                4 Hours
+            </option>
+
+            <option value="5 hours">
+                5 Hours
+            </option>
+
+            <option value="6 hours">
+                6 Hours
+            </option>
+
+            <option value="7 hours">
+                7 Hours
+            </option>
+
+            <option value="8 hours">
+                8 Hours
+            </option>
+
+        </select>
+
+
+        <!-- Save Button -->
+
+        <button
+            class="button"
+            onclick="saveDetails()"
+        >
+            💾 Save Study Details
+        </button>
+
+
+        <!-- Result -->
+
+        <div id="result">
+
+            <h2>🎓 Your Study Profile</h2>
+
+            <div class="detail">
+                <b>Name:</b>
+                <span id="showName"></span>
+            </div>
+
+            <div class="detail">
+                <b>Class:</b>
+                <span id="showClass"></span>
+            </div>
+
+            <div class="detail">
+                <b>Subjects:</b>
+                <span id="showSubjects"></span>
+            </div>
+
+            <div class="detail">
+                <b>Study Start Time:</b>
+                <span id="showTime"></span>
+            </div>
+
+            <div class="detail study-time">
+                <b>Daily Study Goal:</b>
+                <span id="showHours"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function saveDetails() {
+
+            // Get values
+
+            let name =
+                document.getElementById("name").value;
+
+            let studentClass =
+                document.getElementById("class").value;
+
+            let subject1 =
+                document.getElementById("subject1").value;
+
+            let subject2 =
+                document.getElementById("subject2").value;
+
+            let subject3 =
+                document.getElementById("subject3").value;
+
+            let subject4 =
+                document.getElementById("subject4").value;
+
+            let studyTime =
+                document.getElementById("studyTime").value;
+
+            let hours =
+                document.getElementById("hours").value;
+
+
+            // Check required details
+
+            if (
+                name === "" ||
+                studentClass === "" ||
+                hours === ""
+            ) {
+
+                alert(
+                    "Please enter your name, class and study hours!"
+                );
+
+                return;
+            }
+
+
+            // Display details
+
+            document.getElementById("showName")
+                .innerText = name;
+
+            document.getElementById("showClass")
+                .innerText = studentClass;
+
+
+            // Subjects
+
+            let subjects = [];
+
+            if (subject1 !== "")
+                subjects.push(subject1);
+
+            if (subject2 !== "")
+                subjects.push(subject2);
+
+            if (subject3 !== "")
+                subjects.push(subject3);
+
+            if (subject4 !== "")
+                subjects.push(subject4);
+
+
+            document.getElementById("showSubjects")
+                .innerText =
+                subjects.join(", ");
+
+
+            // Study time
+
+            document.getElementById("showTime")
+                .innerText =
+                studyTime || "Not selected";
+
+
+            // Study hours
+
+            document.getElementById("showHours")
+                .innerText = hours;
+
+
+            // Show result
+
+            document.getElementById("result")
+                .style.display = "block";
+
+        }
+
+    </script>
+
+</body>
+</html>
