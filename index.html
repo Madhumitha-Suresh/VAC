@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Planner | Welcome</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #fff1d6, #f9d9e8 52%, #d9e8ff);
+      color: #26213d;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .page {
+      width: min(1050px, 100%);
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      overflow: hidden;
+      background: #fff;
+      border-radius: 28px;
+      box-shadow: 0 24px 70px #41326425;
+    }
+
+    .welcome-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #6b5cf6, #a45cf0 58%, #f17fb4);
+      color: white;
+    }
+
+    .welcome-panel::before,
+    .welcome-panel::after {
+      position: absolute;
+      content: "";
+      border-radius: 50%;
+      background: #ffffff14;
+    }
+
+    .welcome-panel::before {
+      width: 270px;
+      height: 270px;
+      top: -105px;
+      right: -95px;
+    }
+
+    .welcome-panel::after {
+      width: 190px;
+      height: 190px;
+      bottom: -80px;
+      left: -70px;
+    }
+
+    .brand,
+    .welcome-copy,
+    .student-art,
+    .quote {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .brand span {
+      color: #ffe58a;
+    }
+
+    .welcome-copy {
+      margin-top: 42px;
+    }
+
+    .welcome-copy h1 {
+      max-width: 440px;
+      margin-bottom: 14px;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.08;
+    }
+
+    .welcome-copy p {
+      max-width: 390px;
+      color: #f4edff;
+      line-height: 1.7;
+    }
+
+    .student-art {
+      width: min(390px, 100%);
+      align-self: center;
+      margin: -3px auto -14px;
+      filter: drop-shadow(0 12px 16px #35216b30);
+    }
+
+    .quote {
+      padding-left: 14px;
+      border-left: 3px solid #ffe58a;
+      color: #fff7d9;
+      font-size: 0.95rem;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .quote strong {
+      display: block;
+      margin-top: 5px;
+      color: white;
+      font-size: 0.8rem;
+      font-style: normal;
+    }
+
+    .login-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 54px clamp(28px, 6vw, 68px);
+    }
+
+    .login-panel h2 {
+      margin-bottom: 8px;
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      margin-bottom: 32px;
+      color: #77758a;
+      line-height: 1.5;
+    }
+
+    .field {
+      margin-bottom: 19px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      border: 1px solid #dedce8;
+      border-radius: 12px;
+      outline: none;
+      font: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      border-color: #7865ee;
+      box-shadow: 0 0 0 4px #7865ee1c;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 22px;
+      color: #77758a;
+      font-size: 0.85rem;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .remember input {
+      width: auto;
+      accent-color: #7865ee;
+    }
+
+    .options a,
+    .signup a {
+      color: #6b5cf6;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #6b5cf6, #a35bec);
+      color: white;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 9px 18px #8063e638;
+      transition: transform 0.2s, filter 0.2s;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .message {
+      min-height: 24px;
+      margin-top: 14px;
+      color: #d14662;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .signup {
+      margin-top: 18px;
+      color: #77758a;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 14px;
+      }
+
+      .page {
+        max-width: 520px;
+        grid-template-columns: 1fr;
+      }
+
+      .welcome-panel {
+        min-height: 470px;
+        padding: 30px;
+      }
+
+      .welcome-copy {
+        margin-top: 28px;
+      }
+
+      .student-art {
+        width: 280px;
+        max-height: 190px;
+      }
+
+      .login-panel {
+        padding: 38px 30px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .options {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="welcome-panel">
+      <div>
+        <div class="brand">Study<span>Bloom</span> ✦</div>
+        <div class="welcome-copy">
+          <h1>Your goals are closer than you think.</h1>
+          <p>
+            Plan your study sessions, stay focused, and celebrate every
+            little win along the way.
+          </p>
+        </div>
+      </div>
+
+      <!-- Self-contained student illustration -->
+      <svg class="student-art" viewBox="0 0 420 280" role="img"
+           aria-label="Colorful illustration of a student studying at a desk">
+        <circle cx="209" cy="136" r="118" fill="#ffffff22"/>
+        <circle cx="91" cy="74" r="10" fill="#ffe58a"/>
+        <circle cx="334" cy="91" r="8" fill="#a9f3df"/>
+        <path d="M91 214h242" stroke="#ffe5a0" stroke-width="12" stroke-linecap="round"/>
+        <path d="M128 220l-12 47M299 220l12 47" stroke="#ffe5a0" stroke-width="9" stroke-linecap="round"/>
+
+        <!-- books -->
+        <rect x="91" y="187" width="78" height="17" rx="5" fill="#ff7fae" transform="rotate(-5 91 187)"/>
+        <rect x="99" y="170" width="68" height="17" rx="5" fill="#ffd66e" transform="rotate(4 99 170)"/>
+
+        <!-- body and hair -->
+        <path d="M172 154c0-32 18-54 48-54s48 22 48 54v45h-96z" fill="#35c9a5"/>
+        <path d="M180 105c4-31 25-48 49-43 22 4 36 23 33 50l-8 35h-67z" fill="#382653"/>
+        <!-- face -->
+        <ellipse cx="220" cy="111" rx="35" ry="41" fill="#f4b98d"/>
+        <path d="M185 106c-2-29 17-48 43-44 22 3 35 19 34 42-13-2-25-11-34-21-10 14-24 21-43 23z" fill="#382653"/>
+        <circle cx="208" cy="113" r="2.5" fill="#382653"/>
+        <circle cx="232" cy="113" r="2.5" fill="#382653"/>
+        <path d="M212 129q9 8 17 0" fill="none" stroke="#bd665d" stroke-width="3" stroke-linecap="round"/>
+        <!-- arm -->
+        <path d="M184 163q-21 13-34 33" fill="none" stroke="#f4b98d" stroke-width="13" stroke-linecap="round"/>
+        <path d="M254 161q20 13 30 31" fill="none" stroke="#f4b98d" stroke-width="13" stroke-linecap="round"/>
+
+        <!-- open notebook -->
+        <path d="M177 189q25-12 48 0v35q-23-12-48 0z" fill="#fff8dc"/>
+        <path d="M225 189q25-12 48 0v35q-23-12-48 0z" fill="#fff"/>
+        <path d="M225 190v34" stroke="#dfd6ba" stroke-width="2"/>
+        <path d="M187 201h27M187 208h25M237 201h26M237 208h24"
+              stroke="#b9b1d0" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- pencil -->
+        <path d="M285 174l28-27 8 8-28 27z" fill="#ffe16a"/>
+        <path d="M313 147l5-5 8 8-5 5z" fill="#ff8c78"/>
+      </svg>
+
+      <p class="quote">
+        “The secret of getting ahead is getting started.”
+        <strong>— Mark Twain</strong>
+      </p>
+    </section>
+
+    <section class="login-panel">
+      <h2>Welcome back!</h2>
+      <p class="subtitle">Log in to pick up where you left off.</p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email"
+                 placeholder="you@example.com" autocomplete="email" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password"
+                 placeholder="Enter your password" autocomplete="current-password"
+                 minlength="6" required />
+        </div>
+
+        <div class="options">
+          <label class="remember">
+            <input type="checkbox" name="remember" />
+            Remember me
+          </label>
+          <a href="#" id="forgotLink">Forgot password?</a>
+        </div>
+
+        <button class="login-button" type="submit">Log in</button>
+        <p class="message" id="message" aria-live="polite"></p>
+      </form>
+
+      <p class="signup">New here? <a href="#" id="signupLink">Create an account</a></p>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      message.style.color = "#26876b";
+      message.textContent = "Looks good! Connect this form to your login system.";
+    });
+
+    document.getElementById("forgotLink").addEventListener("click", function (event) {
+      event.preventDefault();
+      message.style.color = "#6b5cf6";
+      message.textContent = "Password reset can be added when you connect a backend.";
+    });
+
+    document.getElementById("signupLink").addEventListener("click", function (event) {
+      event.preventDefault();
+      message.style.color = "#6b5cf6";
+      message.textContent = "You can link this to your sign-up page.";
+    });
+  </script>
+</body>
+</html>
